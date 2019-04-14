@@ -1,6 +1,8 @@
 package com.newkeshe.dao;
 
+import com.newkeshe.entity.Ivg;
 import com.newkeshe.entity.User;
+import com.newkeshe.entity.User_Ivg;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Repository;
@@ -9,12 +11,16 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
-public interface UserDao extends JpaRepository<User,Integer> {
-    List<User> findAll();
-    <S extends User>S save(S s);
-    List<User> findByUPhone(String uPhone);
-    List<User> findByUId(Integer uId);
+public interface UserIvgDao extends JpaRepository<User_Ivg,Integer> {
+    @Override
+    <S extends User_Ivg> S save(S s);
+
+    @Override
+    List<User_Ivg> findAll();
+
+    List<User_Ivg> findByUserAndIvg(User user,Ivg ivg);
     @Transactional
     @Modifying
-    void deleteByUId(Integer uId);
+    void deleteByUserAndIvg(User user, Ivg ivg);
+
 }

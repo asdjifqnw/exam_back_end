@@ -28,6 +28,7 @@ public class UserController {
                                @RequestBody User user,
                                HttpServletRequest request){
         user.setUId(Integer.valueOf(request.getAttribute("uId").toString()));
+        user.setUId(Integer.valueOf(request.getAttribute("uPerm").toString()));
         return userService.ModiPersInfo(user);
     }
 }

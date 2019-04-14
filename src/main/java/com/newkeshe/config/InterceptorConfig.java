@@ -1,5 +1,6 @@
 package com.newkeshe.config;
 
+import com.newkeshe.interceptor.AdminInterceptor;
 import com.newkeshe.interceptor.UserInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,9 +14,15 @@ public class InterceptorConfig implements WebMvcConfigurer {
                 .addPathPatterns("/user/**")
                 .excludePathPatterns("/user/login")
                 .excludePathPatterns("/user/register");
+        registry.addInterceptor(adminInterceptor())
+                .addPathPatterns("/admin/**");
     }
     @Bean
     public UserInterceptor userInterceptor(){
         return new UserInterceptor();
+    }
+    @Bean
+    public AdminInterceptor adminInterceptor(){
+        return new AdminInterceptor();
     }
 }

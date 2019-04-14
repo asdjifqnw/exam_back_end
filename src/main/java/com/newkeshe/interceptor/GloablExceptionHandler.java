@@ -10,15 +10,15 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestControllerAdvice
 public class GloablExceptionHandler {
-    @ExceptionHandler(RuntimeException.class)
-    @ResponseStatus(HttpStatus.FORBIDDEN)
-    public Object handleException(Exception e) {
-        String msg = e.getMessage();
-        if (msg == null || msg.equals("")) {
-            msg = "服务器出错";
-        }
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("msg", msg);
-        return jsonObject;
-    }
+//    @ExceptionHandler(RuntimeException.class)
+//    @ResponseStatus(HttpStatus.FORBIDDEN)
+//    public Object handleException(Exception e) {
+//        String msg = e.getMessage();
+//        if (msg == null || msg.equals("")) {
+//            msg = "服务器出错";
+//        }
+//        JSONObject jsonObject = new JSONObject();
+//        jsonObject.put("msg", msg);
+//        return jsonObject;
+//    }
 }
