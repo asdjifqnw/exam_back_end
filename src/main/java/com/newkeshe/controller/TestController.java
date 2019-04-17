@@ -13,7 +13,7 @@ import java.util.List;
 public class TestController {
     @Autowired
     UserService userService;
-    @GetMapping("/user/test")
+    @GetMapping("/test")
     public Object test(){
         return "2333";
     }
