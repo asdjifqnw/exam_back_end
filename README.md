@@ -1,4 +1,5 @@
 # 系统程序设计课程设计后端
+基于[原项目](https://github.com/hsfy19091/SystemProgramingBackEnd)做代码重构  
 ## 技术栈
 > SpringBoot2.0 \+ MySql 5.6 \+ Lombok等  
 > 接口按照标准REST风格进行设计,[参考博客](https://www.jianshu.com/p/84568e364ee8),[GitHub官方说明文档](https://developer.github.com/v3/)
