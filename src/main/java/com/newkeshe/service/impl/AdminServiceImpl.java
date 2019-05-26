@@ -5,9 +5,13 @@ import com.newkeshe.entity.*;
 import com.newkeshe.service.AdminService;
 import com.newkeshe.util.entity.Result;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+import org.springframework.web.server.ResponseStatusException;
+
+import java.util.Optional;
 
 @Component
 public class AdminServiceImpl implements AdminService {
@@ -27,10 +31,10 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public User addUser(User user) {
-        if (userDao.findByUPhone(user.getUPhone()).isEmpty()) {
-            user.setUPwd(p.encode(user.getUPwd()));
+        if (userDao.findByPhone(user.getPhone()) == null) {
+            user.setPassword(p.encode(user.getPassword()));
             userDao.save(user);
-            user.setUPwd("");
+            user.setPassword("");
             return user;
         } else {
             throw new RuntimeException("电话号已存在!");
@@ -39,20 +43,21 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public Boolean rmUser(Integer uId) {
-        if (userDao.findByUId(uId).isEmpty()) {
-            throw new RuntimeException("用户不存在,请检查你您的操作.");
-        }
-        userDao.deleteByUId(uId);
+        Optional.ofNullable(userDao.findById(uId))
+                .orElseThrow(() -> new RuntimeException("用户不存在,请检查你您的操作."));
+        userDao.deleteById(uId);
         return true;
     }
 
     @Override
     public User modiUserInfo(User user) {
-        String phone = userDao.findByUId(user.getUId()).get(0).getUPhone();
-        if (user.getUPhone().equals(phone) || userDao.findByUPhone(user.getUPhone()).isEmpty()) {
-            user.setUPwd(p.encode(user.getUPwd()));
+        String phone = userDao.findById(user.getId())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "发生错误"))
+                .getPhone();
+        if (user.getPhone().equals(phone) || userDao.findByPhone(user.getPhone()) == null) {
+            user.setPassword(p.encode(user.getPassword()));
             userDao.save(user);
-            user.setUPwd("");
+            user.setPassword("");
             return user;
         } else
             throw new RuntimeException("电话号已存在!");
@@ -66,25 +71,21 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public Boolean rmIvg(Integer ivgId) {
-        if (!ivgDao.findByIvgId(ivgId).isEmpty()) {
-            ivgDao.deleteByIvgId(ivgId);
-            return true;
-        } else
-            throw new RuntimeException("监考信息不存在，请重试");
+        ivgDao.findById(ivgId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "未找到"));
+        ivgDao.deleteById(ivgId);
+        return true;
     }
 
     @Override
     public Ivg modiIvgInfo(Ivg ivg) {
-        if (!ivgDao.findByIvgId(ivg.getIvgId()).get(0).equals(ivg)) {
-            ivgDao.save(ivg);
-            return ivg;
-        } else
-            throw new RuntimeException("任务信息未更改");
+        ivgDao.save(ivg);
+        return ivg;
     }
 
     @Override
     public User_Ivg setUserIvg(Integer uId, Integer ivgId) {
-        if(userDao.findByUId(uId).isEmpty()||ivgDao.findByIvgId(ivgId).isEmpty())
+        if (!userDao.findById(uId).isPresent() || !ivgDao.findById(ivgId).isPresent())
             throw new RuntimeException("参数错误");
         User_Ivg user_ivg = new User_Ivg();
         user_ivg.setUser(new User(uId));
@@ -95,7 +96,7 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public Boolean rmUserIvg(Integer uId, Integer ivgId) {
-        if(userIvgDao.findByUserAndIvg(new User(uId), new Ivg(ivgId)).isEmpty())
+        if (userIvgDao.findByUserAndIvg(new User(uId), new Ivg(ivgId)).isEmpty())
             throw new RuntimeException("参数错误");
         userIvgDao.deleteByUserAndIvg(new User(uId), new Ivg(ivgId));
         return true;
@@ -109,12 +110,10 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public Boolean rmTask(Integer tId) {
-        if (taskDao.findByTId(tId).isEmpty())
-            throw new RuntimeException("任务不存在!");
-        else {
-            taskDao.deleteByTId(tId);
+        taskDao.findById(tId)
+                .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"未找到任务信息"));
+            taskDao.deleteById(tId);
             return true;
-        }
     }
 
     @Override
@@ -124,10 +123,16 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
+    public Task closeTask(Integer tId) {
+        taskDao.closeTask(tId);
+        return taskDao.findById(tId).orElse(null);
+    }
+
+    @Override
     public boolean rmUserTask(Integer uId, Integer tId) {
-        if(userDao.findByUId(uId).isEmpty()||taskDao.findByTId(tId).isEmpty())
+        if (!userDao.findById(uId).isPresent() || !taskDao.findById(tId).isPresent()) {
             throw new RuntimeException("参数错误");
-        else{
+        } else {
             userTaskDao.deleteByUserAndTask(new User(uId), new Task(tId));
             return true;
         }

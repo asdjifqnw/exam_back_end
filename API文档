@@ -1,0 +1,105 @@
+# 后端接口文档
+
+- 注册 /api/register  method:POST
+
+输入数据
+```json
+{
+    "name": "hsfy",
+    "phone": "13345678901",
+    "password": "test password"
+}
+```
+返回数据为一个完整的User实体
+```json
+{
+    "id": 1,
+    "name": "hsfy",
+    "aid": 1,
+    "role": 0,
+    "phone": "13345678901"
+}
+```
+
+- 登录 /api/login method:POST  
+
+输入数据
+```json
+{
+  "phone":"13345678901",
+  "password":"test password"
+}
+```
+返回数据样例
+```json
+{
+    "uInfo": {
+        "id": 1,
+        "name": "hsfy",
+        "aid": 1,
+        "role": 0,
+        "phone": "13345678901",
+        "userIvgs": [],
+        "userTasks": [],
+        "insertTime": "2019-05-26 17:58:43",
+        "updateTime": "2019-05-26 17:58:43"
+    },
+    "token": "5f9d820f64de890e86ed4f2e717c8f8ade8d7e46a9227494db910aa4e81bf3042fe1dc94d4779e66e713385c167574f7"
+}
+```
+**说明:token要放在请求头的"Authorization"中**
+- 管理员直接添加用户  /api/admin/user  method:POST  
+
+输入数据
+```json
+{
+    "name": "hsfy",
+    "phone": "13345678902",
+    "password": "test password"
+}
+```
+返回数据为一个完整的User实体
+```json
+{
+    "id": 2,
+    "name": "hsfy",
+    "aid": 1,
+    "role": 0,
+    "phone": "13345678902"
+}
+```
+- 管理员删除用户 /api/admin/user  method:DELETE  
+
+输入数据
+```json
+{
+  "id":2
+}
+```
+输出数据样例
+```json
+true
+```
+- 管理员更改用户信息 /api/admin/user  method:PATCH  
+
+输入数据
+```json
+{
+    "id": 3,
+    "name": "hsfy2",
+    "aid": 1,
+    "role": 0,
+    "phone": "13345678903",
+    "password":"must modify password"
+}
+```
+输出数据样例
+```json
+{
+    "id": 3,
+    "name": "hsfy2",
+    "aid": 1,
+    "role": 0,
+    "phone": "13345678903"
+}
+```

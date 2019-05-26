@@ -28,7 +28,7 @@ public class User_Ivg {
                     "DEFAULT CURRENT_TIMESTAMP",
             updatable = false,
             insertable = false)
-    private LocalDateTime insTime;
+    private LocalDateTime insertTime;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(nullable = false,
             columnDefinition = "DATETIME NOT NULL " +
@@ -36,5 +36,5 @@ public class User_Ivg {
                     "CURRENT_TIMESTAMP",
             updatable = false,
             insertable = false)
-    private LocalDateTime upTime;
+    private LocalDateTime updateTime;
 }

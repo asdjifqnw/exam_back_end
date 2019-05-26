@@ -2,10 +2,7 @@ package com.newkeshe.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -19,17 +16,17 @@ import java.util.List;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer uId;
+    private Integer id;
     @Column(length = 20)
-    private String uName;
-    private Integer uPerm;
-    private Integer uPosit;
+    private String name;
+    private Integer aid=1;
+    private Integer role=0;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private String uPwd;
+    private String password;
     @Column(length = 11,unique = true)
-    private String uPhone;
+    private String phone;
     @Column(length = 200)
-    private String uDesc;
+    private String description;
     @OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE,fetch = FetchType.LAZY)
     private List<User_Ivg> userIvgs;
     @OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE,fetch = FetchType.LAZY)
@@ -40,7 +37,7 @@ public class User {
                     "DEFAULT CURRENT_TIMESTAMP",
             updatable = false,
             insertable = false)
-    private LocalDateTime insTime;
+    private LocalDateTime insertTime;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(nullable = false,
             columnDefinition = "DATETIME NOT NULL " +
@@ -48,11 +45,11 @@ public class User {
                     "CURRENT_TIMESTAMP",
             updatable = false,
             insertable = false)
-    private LocalDateTime upTime;
+    private LocalDateTime updateTime;
     public User(){
 
     }
     public User(Integer uId){
-        this.uId = uId;
+        this.id = uId;
     }
 }

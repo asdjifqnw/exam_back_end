@@ -4,6 +4,8 @@ import com.newkeshe.entity.Ivg;
 import com.newkeshe.entity.Task;
 import com.newkeshe.entity.User;
 import com.newkeshe.service.AdminService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +14,7 @@ import java.util.Map;
 
 @Slf4j
 @RestController
-@RequestMapping("/admin")
+@RequestMapping("/api/admin")
 public class AdminController {
     @Autowired
     AdminService adminService;
@@ -23,10 +25,10 @@ public class AdminController {
         return adminService.addUser(user);
     }
 
-    @DeleteMapping("/rmIvguser")
+    @DeleteMapping("/user")
     public Object rmUser(@RequestBody Map map) {
-        log.info("准备删除用户的Id:{} ", map.get("uid"));
-        return adminService.rmUser(Integer.valueOf(map.get("uid").toString()));
+        log.info("准备删除用户的Id:{} ", map.get("id"));
+        return adminService.rmUser(Integer.valueOf(map.get("id").toString()));
     }
 
     @PatchMapping("/user")

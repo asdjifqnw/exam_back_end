@@ -15,14 +15,14 @@ import java.util.List;
 public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer tId;
-    private Integer tType;
-    private String tDesc;
+    private Integer id;
+    private Integer type;
+    private String description;
     @Column(length = 20)
-    private String tName;
+    private String name;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime tDdl;
-    private Boolean tIsOpen;
+    private LocalDateTime ddl;
+    private Boolean isOpen;
     @OneToMany(mappedBy = "task",cascade = CascadeType.REMOVE,fetch = FetchType.LAZY)
     private List<User_Task> userTasks;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
@@ -31,7 +31,7 @@ public class Task {
                     "DEFAULT CURRENT_TIMESTAMP",
             updatable = false,
             insertable = false)
-    private LocalDateTime insTime;
+    private LocalDateTime insertTime;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(nullable = false,
             columnDefinition = "DATETIME NOT NULL " +
@@ -39,9 +39,9 @@ public class Task {
                     "CURRENT_TIMESTAMP",
             updatable = false,
             insertable = false)
-    private LocalDateTime upTime;
+    private LocalDateTime updateTime;
     public Task(Integer tId){
-        this.tId = tId;
+        this.id = tId;
     }
     public Task(){}
 }

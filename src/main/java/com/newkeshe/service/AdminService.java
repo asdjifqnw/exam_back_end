@@ -17,6 +17,7 @@ public interface AdminService {
     Task addTask(Task task);
     Boolean rmTask(Integer tId);
     Task modiTaskInfo(Task task);
+    Task closeTask(Integer tId);
 //    删除用户完成信息情况
     boolean rmUserTask(Integer uId,Integer tId);
 }

@@ -17,15 +17,15 @@ import java.util.List;
 public class Ivg {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer ivgId;
+    private Integer id;
     @Column(length = 20)
-    private String ivgName;
+    private String name;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime ivgBt;
+    private LocalDateTime beginTime;
     @JsonFormat(pattern = "HH:mm:ss")
-    private LocalTime ivgDur;
-    private Integer ivgLocat;
-    private Integer ivgNumOfTea;
+    private LocalTime duration;
+    private Integer location;
+    private Integer numbersOfTeacher;
     @OneToMany(mappedBy = "ivg", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<User_Ivg> userIvgs;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
@@ -34,7 +34,7 @@ public class Ivg {
                     "DEFAULT CURRENT_TIMESTAMP",
             updatable = false,
             insertable = false)
-    private LocalDateTime insTime;
+    private LocalDateTime insertTime;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(nullable = false,
             columnDefinition = "DATETIME NOT NULL " +
@@ -42,12 +42,12 @@ public class Ivg {
                     "CURRENT_TIMESTAMP",
             updatable = false,
             insertable = false)
-    private LocalDateTime upTime;
+    private LocalDateTime updateTime;
 
     public Ivg() {
     }
 
     public Ivg(Integer ivgId) {
-        this.ivgId = ivgId;
+        this.id = ivgId;
     }
 }

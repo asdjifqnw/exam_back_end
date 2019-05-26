@@ -23,8 +23,6 @@ public class User_Task {
     @ManyToOne
     private Task task;
     private String content;
-    private String fileLocat;
-    private String ipAddr;
     private Boolean timeOut;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(nullable = false,
@@ -32,7 +30,7 @@ public class User_Task {
                     "DEFAULT CURRENT_TIMESTAMP",
             updatable = false,
             insertable = false)
-    private LocalDateTime insTime;
+    private LocalDateTime insertTime;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(nullable = false,
             columnDefinition = "DATETIME NOT NULL " +
@@ -40,5 +38,5 @@ public class User_Task {
                     "CURRENT_TIMESTAMP",
             updatable = false,
             insertable = false)
-    private LocalDateTime upTime;
+    private LocalDateTime updateTime;
 }
