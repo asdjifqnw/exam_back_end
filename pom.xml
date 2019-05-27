@@ -9,13 +9,15 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.newkeshe</groupId>
-    <artifactId>demo</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <artifactId>exam_back_end</artifactId>
+    <version>1.0</version>
     <name>newkeshe</name>
     <description>new keshe</description>
 
     <properties>
         <java.version>1.8</java.version>
+        <dockerfile.maven.version>1.4.0</dockerfile.maven.version>
+        <docker.registry.name.prefix>74.121.149.107:2375</docker.registry.name.prefix>
     </properties>
 
     <dependencies>
@@ -76,6 +78,36 @@
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>dockerfile-maven-plugin</artifactId>
+                <version>${dockerfile.maven.version}</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>javax.activation</groupId>
+                        <artifactId>activation</artifactId>
+                        <version>1.1.1</version>
+                    </dependency>
+                </dependencies>
+                <executions>
+                    <execution>
+                        <id>default</id>
+                        <goals>
+                            <goal>build</goal>
+                            <goal>push</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <repository>${docker.registry.name.prefix}/${project.artifactId}</repository>
+                    <tag>${project.version}</tag>
+                    <username>123</username>
+                    <password>123</password>
+                    <buildArgs>
+                        <JAR_FILE>${project.build.finalName}.jar</JAR_FILE>
+                    </buildArgs>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>

@@ -21,14 +21,6 @@ public class NewkesheApplicationTests {
     UserService userService;
     @Test
     public void contextLoads() {
-        User_Task user_task = new User_Task();
-        user_task.setTask(new Task(17));
-        user_task.setUser(new User(1));
-        userService.setUserTask(user_task);
-    }
-    @Test
-    public void test2(){
-        System.out.println(userService.findSomeoneTaskInfo(1, 17).getContent());
     }
 
 }
