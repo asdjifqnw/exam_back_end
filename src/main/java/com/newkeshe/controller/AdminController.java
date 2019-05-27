@@ -1,5 +1,6 @@
 package com.newkeshe.controller;
 
+import com.newkeshe.dao.TaskDao;
 import com.newkeshe.entity.Ivg;
 import com.newkeshe.entity.Task;
 import com.newkeshe.entity.User;
@@ -10,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @Slf4j
@@ -19,20 +21,25 @@ public class AdminController {
     @Autowired
     AdminService adminService;
 
+    @GetMapping("/users")
+    public List<User> getUsers() {
+        return adminService.findAllUser();
+    }
+
     @PostMapping("/user")
     public Object addUser(@RequestBody User user) {
         log.info(user.toString());
         return adminService.addUser(user);
     }
 
-    @DeleteMapping("/user")
-    public Object rmUser(@RequestBody Map map) {
-        log.info("准备删除用户的Id:{} ", map.get("id"));
-        return adminService.rmUser(Integer.valueOf(map.get("id").toString()));
+    @DeleteMapping("/user/{id}")
+    public Object rmUser(@PathVariable Integer id) {
+        return adminService.rmUser(id);
     }
 
-    @PatchMapping("/user")
-    public Object modiUser(@RequestBody User user) {
+    @PatchMapping("/user/{id}")
+    public Object modiUser(@PathVariable Integer id, @RequestBody User user) {
+        user.setId(id);
         return adminService.modiUserInfo(user);
     }
 
@@ -41,14 +48,14 @@ public class AdminController {
         return adminService.addIvg(ivg);
     }
 
-    @DeleteMapping("/ivg")
-    public Object rmIvg(@RequestBody Map map) {
-        log.info("准备删除监考信息的Id:{} ", map.get("uid"));
-        return adminService.rmIvg(Integer.valueOf(map.get("ivgId").toString()));
+    @DeleteMapping("/ivg/{id}")
+    public Object rmIvg(@PathVariable Integer id) {
+        return adminService.rmIvg(id);
     }
 
-    @PatchMapping("/ivg")
-    public Object modiIvg(@RequestBody Ivg ivg) {
+    @PatchMapping("/ivg/{id}")
+    public Object modiIvg(@PathVariable Integer id, @RequestBody Ivg ivg) {
+        ivg.setId(id);
         return adminService.modiIvgInfo(ivg);
     }
 
@@ -58,29 +65,37 @@ public class AdminController {
                 Integer.valueOf(map.get("uId").toString()),
                 Integer.valueOf(map.get("ivgId").toString()));
     }
-    @DeleteMapping("/user_ivg")
-    public Object rmUserIvg(@RequestBody Map map){
-        return adminService.rmUserIvg(
-                Integer.valueOf(map.get("uId").toString()),
-                Integer.valueOf(map.get("ivgId").toString()));
+
+    @DeleteMapping("/user_ivg/{id}")
+    public Object rmUserIvg(@PathVariable Integer id) {
+        return adminService.rmUserIvg(id);
+
     }
+
     @PostMapping("/task")
-    public Object addTask(@RequestBody Task task){
-        log.info(task.toString());
+    public Object addTask(@RequestBody Task task) {
         return adminService.addTask(task);
     }
-    @DeleteMapping("/task")
-    public Object rmTask(@RequestBody Map map){
-        return adminService.rmTask(Integer.valueOf(map.get("tId").toString()));
+
+    @DeleteMapping("/task/{id}")
+    public Object rmTask(@PathVariable Integer id) {
+        return adminService.rmTask(id);
     }
-    @PatchMapping("/task")
-    public Object modiTask(@RequestBody Task task){
+
+    @PatchMapping("/task/{id}")
+    public Object modiTask(@PathVariable Integer id, @RequestBody Task task) {
+        task.setId(id);
         return adminService.modiTaskInfo(task);
     }
-    @DeleteMapping("/user_task")
-    public Object rmUserTask(@RequestBody Map map){
-        return adminService.rmUserTask(Integer.valueOf(map.get("uId").toString()),
-                Integer.valueOf(map.get("tId").toString()));
+
+    @GetMapping("/task/{id}/close")
+    public Object closeTask(@PathVariable Integer id) {
+        return adminService.closeTask(id);
+    }
+
+    @DeleteMapping("/user_task/{id}")
+    public Object rmUserTask(@PathVariable Integer id) {
+        return adminService.rmUserTask(id);
     }
 
 }

@@ -11,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -28,6 +29,11 @@ public class AdminServiceImpl implements AdminService {
     UserTaskDao userTaskDao;
 
     PasswordEncoder p = new BCryptPasswordEncoder();
+
+    @Override
+    public List<User> findAllUser() {
+        return userDao.findAll();
+    }
 
     @Override
     public User addUser(User user) {
@@ -95,10 +101,8 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public Boolean rmUserIvg(Integer uId, Integer ivgId) {
-        if (userIvgDao.findByUserAndIvg(new User(uId), new Ivg(ivgId)).isEmpty())
-            throw new RuntimeException("参数错误");
-        userIvgDao.deleteByUserAndIvg(new User(uId), new Ivg(ivgId));
+    public Boolean rmUserIvg(Integer id) {
+        userIvgDao.deleteById(id);
         return true;
     }
 
@@ -129,12 +133,8 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public boolean rmUserTask(Integer uId, Integer tId) {
-        if (!userDao.findById(uId).isPresent() || !taskDao.findById(tId).isPresent()) {
-            throw new RuntimeException("参数错误");
-        } else {
-            userTaskDao.deleteByUserAndTask(new User(uId), new Task(tId));
-            return true;
-        }
+    public boolean rmUserTask(Integer id) {
+        userTaskDao.deleteById(id);
+        return true;
     }
 }

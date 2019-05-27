@@ -1,6 +1,7 @@
 package com.newkeshe.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
@@ -27,8 +28,10 @@ public class User {
     private String phone;
     @Column(length = 200)
     private String description;
+    @JsonIgnore
     @OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE,fetch = FetchType.LAZY)
     private List<User_Ivg> userIvgs;
+    @JsonIgnore
     @OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE,fetch = FetchType.LAZY)
     private List<User_Task> userTasks;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")

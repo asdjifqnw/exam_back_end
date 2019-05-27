@@ -19,4 +19,8 @@ public interface UserTaskDao extends JpaRepository<User_Task,Integer> {
     void deleteByUserAndTask(User user,Task task);
 
     User_Task findByUserAndTask(User user,Task task);
+
+    @Transactional
+    @Modifying
+    void deleteById(Integer id);
 }

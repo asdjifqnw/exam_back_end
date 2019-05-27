@@ -1,6 +1,7 @@
 package com.newkeshe.controller;
 
 import com.newkeshe.entity.User;
+import com.newkeshe.entity.User_Task;
 import com.newkeshe.service.UserService;
 import com.newkeshe.util.entity.PhoneAndPwd;
 import io.swagger.annotations.Api;
@@ -20,20 +21,53 @@ import java.util.Map;
 public class UserController {
     @Autowired
     UserService userService;
+
     @PostMapping("/register")
-    public Object Register(@RequestBody User user){
+    public Object Register(@RequestBody User user) {
         return userService.register(user);
     }
+
     @PostMapping("/login")
-    public Object Login(@RequestBody Map map){
-        return userService.login(map.get("phone").toString(),map.get("password").toString());
+    public Object Login(@RequestBody Map map) {
+        return userService.login(map.get("phone").toString(), map.get("password").toString());
     }
-    @PatchMapping("/user_id/{userid}/modi_user_info")
+
+    @PatchMapping("/user/{userid}/modidfyUserInfo")
     public Object ModiUserInfo(@PathVariable Integer userid,
                                @RequestBody User user,
-                               HttpServletRequest request){
+                               HttpServletRequest request) {
         user.setId(Integer.valueOf(request.getAttribute("uId").toString()));
         user.setAid(Integer.valueOf(request.getAttribute("uPerm").toString()));
         return userService.ModiPersInfo(user);
+    }
+
+    @GetMapping("/ivgs")
+    public Object getIvgs() {
+        return userService.listAllIvg();
+    }
+
+    @GetMapping("/tasks")
+    public Object getTasks() {
+        return userService.listAllTask();
+    }
+
+    @GetMapping("/findUserByIvgId")
+    public Object getIvgsByUserId(@RequestParam Integer id) {
+        return userService.viewIvgsUser(id);
+    }
+
+    @GetMapping("/findIvgByUser")
+    public Object getUserByIvg(@RequestParam Integer id) {
+        return userService.viewUsersIvg(id);
+    }
+
+    @PostMapping("/submitTask")
+    public Object submitTask(@RequestBody User_Task user_task) {
+        return userService.setUserTask(user_task);
+    }
+
+    @GetMapping("/findTaskInfoByUserIdAndTaskId")
+    public Object findTaskInfoByUserIdAndTaskId(@RequestParam Integer uId, @RequestParam Integer tId) {
+        return userService.findSomeoneTaskInfo(uId, tId);
     }
 }

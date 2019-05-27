@@ -1,6 +1,7 @@
 package com.newkeshe.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -23,6 +24,7 @@ public class Task {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime ddl;
     private Boolean isOpen;
+    @JsonIgnore
     @OneToMany(mappedBy = "task",cascade = CascadeType.REMOVE,fetch = FetchType.LAZY)
     private List<User_Task> userTasks;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")

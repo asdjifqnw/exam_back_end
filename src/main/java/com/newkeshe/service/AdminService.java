@@ -2,8 +2,11 @@ package com.newkeshe.service;
 
 import com.newkeshe.entity.*;
 
+import java.util.List;
+
 public interface AdminService {
 //    用户信息管理
+    List<User> findAllUser();
     User addUser(User user);
     Boolean rmUser(Integer uId);
     User modiUserInfo(User user);
@@ -12,12 +15,12 @@ public interface AdminService {
     Boolean rmIvg(Integer ivgId);
     Ivg modiIvgInfo(Ivg ivg);
     User_Ivg setUserIvg(Integer uId,Integer ivgId);
-    Boolean rmUserIvg(Integer uId,Integer ivgId);
+    Boolean rmUserIvg(Integer id);
 //    任务信息管理以及任务完成情况管理
     Task addTask(Task task);
     Boolean rmTask(Integer tId);
     Task modiTaskInfo(Task task);
     Task closeTask(Integer tId);
 //    删除用户完成信息情况
-    boolean rmUserTask(Integer uId,Integer tId);
+    boolean rmUserTask(Integer id);
 }

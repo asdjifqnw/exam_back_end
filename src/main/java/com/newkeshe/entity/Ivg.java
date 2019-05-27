@@ -1,6 +1,7 @@
 package com.newkeshe.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,6 +27,7 @@ public class Ivg {
     private LocalTime duration;
     private Integer location;
     private Integer numbersOfTeacher;
+    @JsonIgnore
     @OneToMany(mappedBy = "ivg", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<User_Ivg> userIvgs;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")

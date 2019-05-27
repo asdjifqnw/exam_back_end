@@ -23,6 +23,10 @@ public interface UserIvgDao extends JpaRepository<User_Ivg,Integer> {
     @Modifying
     void deleteByUserAndIvg(User user, Ivg ivg);
 
+    @Transactional
+    @Modifying
+    void deleteById(Integer id);
+
     List<User_Ivg> findByIvg(Ivg ivg);
     List<User_Ivg> findByUser(User user);
 
