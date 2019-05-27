@@ -81,14 +81,7 @@
             <plugin>
                 <groupId>com.spotify</groupId>
                 <artifactId>dockerfile-maven-plugin</artifactId>
-                <version>${dockerfile.maven.version}</version>
-                <dependencies>
-                    <dependency>
-                        <groupId>javax.activation</groupId>
-                        <artifactId>activation</artifactId>
-                        <version>1.1.1</version>
-                    </dependency>
-                </dependencies>
+                <version>1.4.0</version>
                 <executions>
                     <execution>
                         <id>default</id>
@@ -99,10 +92,8 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <repository>${docker.registry.name.prefix}/${project.artifactId}</repository>
+                    <repository>spotify/foobar</repository>
                     <tag>${project.version}</tag>
-                    <username>123</username>
-                    <password>123</password>
                     <buildArgs>
                         <JAR_FILE>${project.build.finalName}.jar</JAR_FILE>
                     </buildArgs>
