@@ -5,7 +5,7 @@ stages:
 build:
   stage: build
   script:
-    - java -v
+    - $JAVA_HOME/bin/java -v
     - $M2_HOME/bin/mvn -v
   artifacts:
     paths:
