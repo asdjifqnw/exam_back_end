@@ -6,7 +6,7 @@ build:
   stage: build
   script:
     - ls
-    - mvn clean
+    - $M2_HOME/bin/mvn clean
   artifacts:
     paths:
     - target/back-end.jar
