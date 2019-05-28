@@ -7,8 +7,7 @@ stages:
 build:
   stage: build
   script:
-    $M2_HOME/bin/mvn -v
-#    sudo $M2_HOME/bin/mvn package
+    - $M2_HOME/bin/mvn -v
   artifacts:
     paths:
     - target/back-end.jar
