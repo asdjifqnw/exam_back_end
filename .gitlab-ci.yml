@@ -7,6 +7,7 @@ build:
   script:
     - ls
     - $M2_HOME/bin/mvn clean
+    - $M2_HOME/bin/mvn package
     - ls
   artifacts:
     paths:
