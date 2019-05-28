@@ -6,6 +6,7 @@ build:
   stage: build
   script:
     - ls
+    - mvn clean
   artifacts:
     paths:
     - target/back-end.jar
