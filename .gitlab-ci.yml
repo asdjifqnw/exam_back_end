@@ -12,7 +12,7 @@ build:
     - $M2_HOME/bin/mvn clean
     - $M2_HOME/bin/mvn package -Dmaven.test.skip=true
     - ls target/
-    - docker images
+    - sudo docker images
   artifacts:
     paths:
     - target/back-end.jar
