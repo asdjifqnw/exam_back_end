@@ -4,11 +4,15 @@ stages:
 
 build:
   stage: build
+  variables:
+    DOCKER_IMAGES_NAME: "exam_back_end_image"
+    DOCKER_CONTAINER_NAME: "exam_back_end_container"
   script:
     - ls
     - $M2_HOME/bin/mvn clean
     - $M2_HOME/bin/mvn package -Dmaven.test.skip=true
     - ls target/
+    - docker images
   artifacts:
     paths:
     - target/back-end.jar
