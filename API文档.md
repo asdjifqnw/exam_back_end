@@ -1,5 +1,7 @@
 # 后端接口文档
 
+## 地址 http://74.121.149.107:8082
+
 - 注册 /api/register  method:POST
 
 输入数据
