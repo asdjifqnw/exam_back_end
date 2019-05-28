@@ -1,5 +1,3 @@
-image: java:8
-
 stages:
 - build
 - deploy
@@ -7,6 +5,7 @@ stages:
 build:
   stage: build
   script:
+    - java -v
     - $M2_HOME/bin/mvn -v
   artifacts:
     paths:
