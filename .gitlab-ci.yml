@@ -8,7 +8,7 @@ build:
     - ls
     - $M2_HOME/bin/mvn clean
     - $M2_HOME/bin/mvn package -Dmaven.test.skip=true
-    - ls
+    - ls target/
   artifacts:
     paths:
     - target/back-end.jar
