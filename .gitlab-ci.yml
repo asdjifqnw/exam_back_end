@@ -5,8 +5,7 @@ stages:
 build:
   stage: build
   script:
-    - $JAVA_HOME/bin/java -v
-    - $M2_HOME/bin/mvn -v
+    - ls
   artifacts:
     paths:
     - target/back-end.jar
