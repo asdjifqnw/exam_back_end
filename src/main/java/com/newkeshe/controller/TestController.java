@@ -15,6 +15,6 @@ public class TestController {
     UserService userService;
     @GetMapping("/test")
     public Object test(){
-        return "2333";
+        return "gitlab-ci test success";
     }
 }
