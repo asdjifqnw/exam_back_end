@@ -7,7 +7,7 @@ build:
   script:
     - ls
     - $M2_HOME/bin/mvn clean
-    - $M2_HOME/bin/mvn package
+    - $M2_HOME/bin/mvn package -Dmaven.test.skip=true
     - ls
   artifacts:
     paths:
