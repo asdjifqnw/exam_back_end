@@ -59,7 +59,7 @@ public class AdminController {
         return adminService.modiIvgInfo(ivg);
     }
 
-    @GetMapping("/user_ivg/{id}/countIvgs")
+    @GetMapping("/user_ivg/{id}/countIsSetIvgs")
     public Integer countIsSetIvg(@PathVariable Integer id){
         return adminService.countIsSetIvg(id);
     }
