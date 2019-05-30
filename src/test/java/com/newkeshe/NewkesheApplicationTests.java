@@ -1,5 +1,6 @@
 package com.newkeshe;
 
+import com.newkeshe.dao.UserIvgDao;
 import com.newkeshe.entity.Task;
 import com.newkeshe.entity.User;
 import com.newkeshe.entity.User_Task;
@@ -19,8 +20,11 @@ public class NewkesheApplicationTests {
     AdminService adminService;
     @Autowired
     UserService userService;
+    @Autowired
+    UserIvgDao userIvgDao;
     @Test
     public void contextLoads() {
+//        System.out.println(userIvgDao.findCountIvgByIvgId(1));
     }
 
 }

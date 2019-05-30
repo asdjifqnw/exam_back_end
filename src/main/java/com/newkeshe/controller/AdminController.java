@@ -59,6 +59,10 @@ public class AdminController {
         return adminService.modiIvgInfo(ivg);
     }
 
+    @GetMapping("/user_ivg/{id}/countIvgs")
+    public Integer countIsSetIvg(@PathVariable Integer id){
+        return adminService.countIsSetIvg(id);
+    }
     @PostMapping("/user_ivg")
     public Object setUserIvg(@RequestBody Map map) {
         return adminService.setUserIvg(

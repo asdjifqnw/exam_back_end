@@ -101,6 +101,11 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
+    public Integer countIsSetIvg(Integer ivgId) {
+        return userIvgDao.findCountIvgByIvgId(ivgId);
+    }
+
+    @Override
     public Boolean rmUserIvg(Integer id) {
         userIvgDao.deleteById(id);
         return true;

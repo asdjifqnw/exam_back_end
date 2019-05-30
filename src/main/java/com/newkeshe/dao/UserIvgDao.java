@@ -5,6 +5,7 @@ import com.newkeshe.entity.User;
 import com.newkeshe.entity.User_Ivg;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
@@ -29,5 +30,8 @@ public interface UserIvgDao extends JpaRepository<User_Ivg,Integer> {
 
     List<User_Ivg> findByIvg(Ivg ivg);
     List<User_Ivg> findByUser(User user);
+
+    @Query(value = "select count(u.ivg) from User_Ivg u where u.ivg.id = ?1")
+    Integer findCountIvgByIvgId(Integer ivgId);
 
 }

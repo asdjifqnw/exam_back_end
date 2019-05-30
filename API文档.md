@@ -204,6 +204,10 @@ true
     "numbersOfTeacher": 3
 }
 ```
+- 获取考试已分配的监考人数 /api/admin/user_ivg/{id}/countIvgs method:GET
+
+返回对应id的考试已分配的监考数  
+
 - 设置监考人员 /api/admin/user_ivg method:POST
 
 输入数据
