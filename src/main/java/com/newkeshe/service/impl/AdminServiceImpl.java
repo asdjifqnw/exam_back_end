@@ -4,6 +4,7 @@ import com.newkeshe.dao.*;
 import com.newkeshe.entity.*;
 import com.newkeshe.service.AdminService;
 import com.newkeshe.util.entity.Result;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -11,9 +12,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Component
 public class AdminServiceImpl implements AdminService {
 
@@ -96,8 +101,30 @@ public class AdminServiceImpl implements AdminService {
         User_Ivg user_ivg = new User_Ivg();
         user_ivg.setUser(new User(uId));
         user_ivg.setIvg(new Ivg(ivgId));
-        userIvgDao.save(user_ivg);
-        return user_ivg;
+        ivgDao.findById(ivgId).ifPresent(ivg -> {
+            if (userIvgDao.findCountIvgByIvgId(ivgId) >= ivg.getNumbersOfTeacher()) {
+                throw new RuntimeException("分配人数超过限制");
+            }
+        });
+        userIvgDao.findByUser(new User(uId)).forEach(ui -> {
+            //用户已分配的考试的开始时间和结束时间
+            LocalDateTime isSetBegin = ui.getIvg().getBeginTime();
+            LocalDateTime isSetEnd = isSetBegin.plusHours(ui.getIvg().getDuration().getHour())
+                    .plusMinutes(ui.getIvg().getDuration().getMinute());
+            //准备分配的考试的开始和结束时间
+            Ivg ivg = ivgDao.findById(ivgId).orElseThrow(() -> new RuntimeException("发生错误"));
+            LocalDateTime begin = ivg.getBeginTime();
+            LocalDateTime end = begin.plusHours(ivg.getDuration().getHour())
+                    .plusMinutes(ivg.getDuration().getMinute());
+            if ((end.isBefore(isSetEnd) && end.isAfter(isSetBegin))
+                    || (begin.isBefore(isSetEnd) && begin.isAfter(isSetBegin))
+                    || (begin.isBefore(isSetBegin) && end.isAfter(isSetEnd))) {
+                userIvgDao.save(user_ivg);
+                throw new RuntimeException("信息已保存,但是与时间为" + ui.getIvg().getBeginTime() +
+                        "的" + ui.getIvg().getName() + "考试冲突");
+            }
+        });
+        return userIvgDao.save(user_ivg);
     }
 
     @Override
@@ -120,9 +147,9 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public Boolean rmTask(Integer tId) {
         taskDao.findById(tId)
-                .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"未找到任务信息"));
-            taskDao.deleteById(tId);
-            return true;
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "未找到任务信息"));
+        taskDao.deleteById(tId);
+        return true;
     }
 
     @Override

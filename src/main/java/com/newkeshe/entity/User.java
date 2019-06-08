@@ -29,10 +29,10 @@ public class User {
     @Column(length = 200)
     private String description;
     @JsonIgnore
-    @OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE,fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE)
     private List<User_Ivg> userIvgs;
     @JsonIgnore
-    @OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE,fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE)
     private List<User_Task> userTasks;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(nullable = false,

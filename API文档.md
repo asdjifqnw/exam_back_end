@@ -281,6 +281,10 @@ true
     "isOpen": true
 }
 ```
+- 修改任务信息 /api/admin/task/{taskId} method:PATCH
+
+输入输出省略  
+
 - 删除任务信息 /api/admin/task/{id} method:DELETE
 
 输入数据

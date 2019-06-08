@@ -6,9 +6,9 @@ spring:
     time-zone: GMT+8
     default-property-inclusion: non_null
   datasource:
-    url: jdbc:mysql://74.121.149.107:3306/newSysPro?useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2B8
+    url: jdbc:mysql://localhost:3306/newSysPro?useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2B8
     username: root
-    password: a1105063901
+    password: abcdef
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect

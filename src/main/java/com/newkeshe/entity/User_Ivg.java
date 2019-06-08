@@ -18,9 +18,9 @@ public class User_Ivg {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private User user;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Ivg ivg;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(nullable = false,
