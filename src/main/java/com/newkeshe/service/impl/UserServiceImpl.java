@@ -61,6 +61,11 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Override
+    public User findSelf(Integer id) {
+        return userDao.findById(id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"未找到用户信息"));
+    }
+
     public User ModiPersInfo(User user) {
         String phone = userDao.findById(user.getId())
                 .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"未找到用户信息"))

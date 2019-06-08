@@ -7,6 +7,7 @@ import java.util.List;
 public interface UserService {
     Object login(String uPhone, String uPwd);
     Object register(User uesr);
+    User findSelf(Integer id);
     User ModiPersInfo(User user);
     List<Ivg> listAllIvg();
     List<User_Ivg> viewIvgsUser(Integer ivgId);

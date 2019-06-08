@@ -1,5 +1,6 @@
 package com.newkeshe.controller;
 
+import com.newkeshe.dao.UserDao;
 import com.newkeshe.entity.User;
 import com.newkeshe.entity.User_Task;
 import com.newkeshe.service.UserService;
@@ -49,6 +50,11 @@ public class UserController {
     @GetMapping("/tasks")
     public Object getTasks() {
         return userService.listAllTask();
+    }
+
+    @GetMapping("/me")
+    public Object getMyInfo(HttpServletRequest request){
+        return userService.findSelf(Integer.valueOf(request.getAttribute("uId").toString()));
     }
 
     @GetMapping("/findUserByIvgId")

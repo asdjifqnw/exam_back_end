@@ -85,6 +85,21 @@
     "phone": "13345678902"
 }
 ```
+- 获取本人信息 /api/me method:GET  
+
+返回数据样例
+```json
+{
+    "id": 1,
+    "name": "hsfy",
+    "aid": 1,
+    "role": 1,
+    "phone": "13345678901",
+    "description": null,
+    "insertTime": "2019-05-26 17:58:43",
+    "updateTime": "2019-05-26 18:09:25"
+}
+```
 - 管理员删除用户 /api/admin/user/{userId}  method:DELETE  
 
 输入数据
