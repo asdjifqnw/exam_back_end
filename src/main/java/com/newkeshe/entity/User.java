@@ -13,7 +13,6 @@ import java.util.List;
 @Setter
 @EqualsAndHashCode
 @Entity
-@ToString
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,6 +27,7 @@ public class User {
     private String phone;
     @Column(length = 200)
     private String description;
+    private Integer count;
     @JsonIgnore
     @OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE)
     private List<User_Ivg> userIvgs;

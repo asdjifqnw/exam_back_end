@@ -9,8 +9,8 @@ public interface UserService {
     Object register(User uesr);
     User findSelf(Integer id);
     User ModiPersInfo(User user);
-    List<Ivg> listAllIvg();
-    List<User_Ivg> viewIvgsUser(Integer ivgId);
+    Object listAllIvg();
+    Object viewIvgsUser(Integer ivgId);
     List<User_Ivg> viewUsersIvg(Integer uId);
     User_Task setUserTask(User_Task user_task);
     User_Task findSomeoneTaskInfo(Integer uId,Integer tId);

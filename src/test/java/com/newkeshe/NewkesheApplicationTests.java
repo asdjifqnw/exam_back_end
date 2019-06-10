@@ -24,7 +24,11 @@ public class NewkesheApplicationTests {
     UserIvgDao userIvgDao;
     @Test
     public void contextLoads() {
-//        System.out.println(userIvgDao.findCountIvgByIvgId(1));
+//        System.out.println(userService.listAllIvg());
+//        System.out.println(userIvgDao.findCountUserByUserId(1));
+//        System.out.println(userIvgDao.findCountUserByUserId(22));
+        System.out.println(adminService.findAllUser());
+//        System.out.println(userService.listAllIvg());
     }
 
 }

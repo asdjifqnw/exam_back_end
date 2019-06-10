@@ -4,8 +4,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.newkeshe.dao.*;
 import com.newkeshe.entity.*;
 import com.newkeshe.service.UserService;
-import com.newkeshe.util.entity.Result;
 import com.newkeshe.util.TokenService;
+import org.apache.commons.beanutils.BeanMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -63,12 +63,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findSelf(Integer id) {
-        return userDao.findById(id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"未找到用户信息"));
+        return userDao.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "未找到用户信息"));
     }
 
     public User ModiPersInfo(User user) {
         String phone = userDao.findById(user.getId())
-                .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"未找到用户信息"))
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "未找到用户信息"))
                 .getPhone();
         if (userDao.findByPhone(user.getPhone()) == null || user.getPhone().equals(phone)) {
             user.setPassword(p.encode(user.getPassword()));
@@ -80,12 +80,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<Ivg> listAllIvg() {
-        return ivgDao.findAll();
+    public Object listAllIvg() {
+        List<Map> result = new ArrayList<>();
+        List<Ivg> list = ivgDao.findAll();
+        for (Ivg ivg : list) {
+            Map map = new BeanMap(ivg);
+            map.put("count", userIvgDao.findCountIvgByIvgId(ivg.getId()));
+            result.add(map);
+        }
+        return result;
     }
 
     @Override
-    public List<User_Ivg> viewIvgsUser(Integer ivgId) {
+    public Object viewIvgsUser(Integer ivgId) {
         return Optional.ofNullable(userIvgDao.findByIvg(new Ivg(ivgId))).orElse(new ArrayList<>());
     }
 
@@ -97,7 +104,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User_Task setUserTask(User_Task user_task) {
         LocalDateTime ddl = taskDao.findById(user_task.getTask().getId())
-                .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND))
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND))
                 .getDdl();
         LocalDateTime now = LocalDateTime.now();
         user_task.setTimeOut(now.isAfter(ddl));

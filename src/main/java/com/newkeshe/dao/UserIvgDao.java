@@ -34,4 +34,6 @@ public interface UserIvgDao extends JpaRepository<User_Ivg,Integer> {
     @Query(value = "select count(u.ivg) from User_Ivg u where u.ivg.id = ?1")
     Integer findCountIvgByIvgId(Integer ivgId);
 
+    @Query(value = "select count(u.user) from User_Ivg u where u.user.id =?1")
+    Integer findCountUserByUserId(Integer userId);
 }

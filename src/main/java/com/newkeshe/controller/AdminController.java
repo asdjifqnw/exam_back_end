@@ -23,7 +23,7 @@ public class AdminController {
     AdminService adminService;
 
     @GetMapping("/users")
-    public List<User> getUsers() {
+    public Object getUsers() {
         return adminService.findAllUser();
     }
 

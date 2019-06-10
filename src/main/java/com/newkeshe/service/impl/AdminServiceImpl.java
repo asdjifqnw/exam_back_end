@@ -3,8 +3,8 @@ package com.newkeshe.service.impl;
 import com.newkeshe.dao.*;
 import com.newkeshe.entity.*;
 import com.newkeshe.service.AdminService;
-import com.newkeshe.util.entity.Result;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.beanutils.BeanMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -12,10 +12,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Slf4j
@@ -36,8 +36,15 @@ public class AdminServiceImpl implements AdminService {
     PasswordEncoder p = new BCryptPasswordEncoder();
 
     @Override
-    public List<User> findAllUser() {
-        return userDao.findAll();
+    public List<Map<String,Object>> findAllUser() {
+        List<User> list = userDao.findAll();
+        List<Map<String,Object>> result = new ArrayList<>();
+        for (User u : list){
+            Map map = new BeanMap(u);
+            map.put("count", userIvgDao.findCountUserByUserId(u.getId()));
+            result.add(map);
+        }
+        return result;
     }
 
     @Override

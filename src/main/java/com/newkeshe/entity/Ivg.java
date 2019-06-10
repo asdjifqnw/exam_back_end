@@ -27,6 +27,7 @@ public class Ivg {
     private LocalTime duration;
     private Integer location;
     private Integer numbersOfTeacher;
+    private Integer count;
     @JsonIgnore
     @OneToMany(mappedBy = "ivg", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<User_Ivg> userIvgs;

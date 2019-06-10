@@ -2,11 +2,9 @@ package com.newkeshe.service;
 
 import com.newkeshe.entity.*;
 
-import java.util.List;
-
 public interface AdminService {
 //    用户信息管理
-    List<User> findAllUser();
+    Object findAllUser();
     User addUser(User user);
     Boolean rmUser(Integer uId);
     User modiUserInfo(User user);
