@@ -530,3 +530,110 @@ true
     "updateTime": "2019-05-27 13:27:15"
 }
 ```
+- 查看某一位用户提交过的版本 /api/getUserTask method:GET  
+
+输入参数  
+
+| 参数名 |   类型   |  说明  |
+|:-----:|:-------:|:------:|  
+|  id   | Integer | 用户的id|
+返回数据实例  
+```json
+[
+    {
+        "id": 1,
+        "user": {
+            "id": 7,
+            "name": "Hsfy",
+            "aid": 0,
+            "role": 0,
+            "phone": "15546313503",
+            "description": null,
+            "count": null,
+            "insertTime": "2019-06-11 11:25:45",
+            "updateTime": "2019-06-11 11:26:17"
+        },
+        "task": {
+            "id": 2,
+            "type": 1,
+            "description": "test",
+            "name": "过期测试",
+            "ddl": "2019-05-27 00:00:00",
+            "isOpen": true,
+            "insertTime": "2019-06-11 11:33:12",
+            "updateTime": "2019-06-11 11:33:12"
+        },
+        "content": "123",
+        "timeOut": true,
+        "insertTime": "2019-06-11 11:36:38",
+        "updateTime": "2019-06-11 11:36:38"
+    },
+    {
+        "id": 2,
+        "user": {
+            "id": 7,
+            "name": "Hsfy",
+            "aid": 0,
+            "role": 0,
+            "phone": "15546313503",
+            "description": null,
+            "count": null,
+            "insertTime": "2019-06-11 11:25:45",
+            "updateTime": "2019-06-11 11:26:17"
+        },
+        "task": {
+            "id": 1,
+            "type": 1,
+            "description": "请回复",
+            "name": "明天考试",
+            "ddl": "2019-06-20 00:00:00",
+            "isOpen": true,
+            "insertTime": "2019-06-11 11:32:47",
+            "updateTime": "2019-06-11 11:32:47"
+        },
+        "content": "123",
+        "timeOut": false,
+        "insertTime": "2019-06-11 11:36:46",
+        "updateTime": "2019-06-11 11:36:46"
+    },
+    {
+        "id": 3,
+        "user": {
+            "id": 7,
+            "name": "Hsfy",
+            "aid": 0,
+            "role": 0,
+            "phone": "15546313503",
+            "description": null,
+            "count": null,
+            "insertTime": "2019-06-11 11:25:45",
+            "updateTime": "2019-06-11 11:26:17"
+        },
+        "task": {
+            "id": 1,
+            "type": 1,
+            "description": "请回复",
+            "name": "明天考试",
+            "ddl": "2019-06-20 00:00:00",
+            "isOpen": true,
+            "insertTime": "2019-06-11 11:32:47",
+            "updateTime": "2019-06-11 11:32:47"
+        },
+        "content": "123",
+        "timeOut": false,
+        "insertTime": "2019-06-11 12:35:14",
+        "updateTime": "2019-06-11 12:35:14"
+    }
+]
+```
+- 查看某一任务的提交结果 /api/getTaskUser method:GET  
+
+输入参数  
+
+| 参数名 |   类型   |  说明  |
+|:-----:|:-------:|:------:|  
+|  id   | Integer | 任务的id|
+返回数据实例
+```json
+
+```

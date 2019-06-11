@@ -25,6 +25,8 @@ public class UserController {
 
     @PostMapping("/register")
     public Object Register(@RequestBody User user) {
+        user.setAid(0);
+        System.out.println(user.getAid());
         return userService.register(user);
     }
 
@@ -53,7 +55,7 @@ public class UserController {
     }
 
     @GetMapping("/me")
-    public Object getMyInfo(HttpServletRequest request){
+    public Object getMyInfo(HttpServletRequest request) {
         return userService.findSelf(Integer.valueOf(request.getAttribute("uId").toString()));
     }
 
@@ -70,6 +72,16 @@ public class UserController {
     @PostMapping("/submitTask")
     public Object submitTask(@RequestBody User_Task user_task) {
         return userService.setUserTask(user_task);
+    }
+
+    @GetMapping("/getUserTask")
+    public Object getUserTask(@RequestParam Integer id) {
+        return userService.getUserTask(id);
+    }
+
+    @GetMapping("/getTaskUser")
+    public Object getTaskUser(@RequestParam Integer id) {
+        return userService.getTaskUser(id);
     }
 
     @GetMapping("/findTaskInfoByUserIdAndTaskId")

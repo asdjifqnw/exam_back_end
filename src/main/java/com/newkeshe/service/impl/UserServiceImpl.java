@@ -112,12 +112,22 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User_Task findSomeoneTaskInfo(Integer uId, Integer tId) {
+    public List<User_Task> findSomeoneTaskInfo(Integer uId, Integer tId) {
         return userTaskDao.findByUserAndTask(new User(uId), new Task(tId));
     }
 
     @Override
     public List<Task> listAllTask() {
         return taskDao.findAll();
+    }
+
+    @Override
+    public List<User_Task> getUserTask(Integer uId) {
+        return userTaskDao.findByUser(new User(uId));
+    }
+
+    @Override
+    public List<User_Task> getTaskUser(Integer tId) {
+        return userTaskDao.findByTask(new Task(tId));
     }
 }
