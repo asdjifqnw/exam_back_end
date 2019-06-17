@@ -15,10 +15,6 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: update
-fileValues:
-  server:
-    MaxFileSize: 300MB
-    MaxRequestSize: 500MB
 my:
   secretkey: R28K42ZEJ8LWRHU5
   salt: 636eac2534bcfcb0

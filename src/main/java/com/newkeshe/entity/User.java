@@ -19,7 +19,7 @@ public class User {
     private Integer id;
     @Column(length = 20)
     private String name;
-    private Integer aid=1;
+    private Integer aid=0;
     private Integer role=0;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
