@@ -1,8 +1,8 @@
 # 后端接口文档
 
-## 地址 http://74.121.149.107:8082
+ ## ~~地址 http://74.121.149.107:8082~~ 服务器被ban了
 
-- 注册 /api/register  method:POST
+-注册 /api/register  method:POST
 
 输入数据
 ```json
